@@ -1,30 +1,55 @@
+// chrome://extension/
 let myLeads=[]
+let oldLeads=[]
+
+
 const inputEl=document.querySelector("#input-el")
 const inputBtn=document.querySelector("#input-btn")
 
 const ulEL=document.querySelector("#ul-el")
 
-inputBtn.addEventListener("click",function(){
-    myLeads.push(inputEl.value)
-    renderLeds()
-    inputEl.value=""
-})
+const leadsFromLocalStorage=JSON.parse(localStorage.getItem("myLeads"))
+console.log(leadsFromLocalStorage)
+// localStorage.clear()
+let deletebtn=document.querySelector("#input-btn-2")
+if(leadsFromLocalStorage==true){
+    myLeads=leadsFromLocalStorage
+    render(myLeads)
+}
 
-function renderLeds(){
+function render(leads){
     let listItem=""
-    for(let i=0;i<myLeads.length;i++){
+    for(let i=0;i<leads.length;i++){
         // listItem +="<li> <a target='-blank' href='#'>" + myLeads[i]+ "</li>"
-        listItem+= `
-          <li>
-          <a target='_blank' href="${myLeads[i]}">
-          ${myLeads[i]}
-          </li>
-          </a>
+        listItem += `
+        <li>
+        <a target='_blank' href='${leads[i]}'>
+            ${leads[i]}
+        </a>
+    </li>
         `
     }
     ulEL.innerHTML=listItem
-    console.log(listItem)
+    // console.log(listItem)
 }
+
+deletebtn.addEventListener('dblclick',function(){
+    localStorage.clear()
+    myLeads=[]
+   render(myLeads)
+})
+
+inputBtn.addEventListener("click",function(){
+    myLeads.push(inputEl.value)
+    // renderLeds()
+    inputEl.value=""
+    localStorage.setItem("myLeads", JSON.stringify(myLeads))
+    render(myLeads)
+
+    // console.log( localStorage.getItem("myLeads") )
+}) 
+
+
 
 // let listItem=""
 
@@ -43,8 +68,16 @@ function renderLeds(){
 
 
 
-const contEl=document.querySelector("#cont-el")
-contEl.innerHTML="<button onclick='buy()'>Buy!</button>"
-function buy(){
-    contEl.innerHTML="<button>Thanks for buying</button>"
+// const contEl=document.querySelector("#cont-el")
+// contEl.innerHTML="<button onclick='buy()'>Buy!</button>"
+// function buy(){
+//     contEl.innerHTML="<button>Thanks for buying</button>"
+// }
+
+const welcomeEl = document.getElementById("welcome-el")
+
+function greetUser() {
+    welcomeEl.textContent = "Welcome back, Per Harald Borgen 👋"    
 }
+
+greetUser()

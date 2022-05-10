@@ -17,6 +17,24 @@ button{
     background-color:  #5f9341;
     color: white;
     border: none;
+    text-transform: uppercase;
 
 }
-
+#input-btn-2{
+    background-color:white;
+    border: 1px solid #5f9341;
+    color: #5f9341;
+    font-weight: 700;
+    font-size: 1;
+}
+ul{
+    margin-top: 20px;
+    list-style: none;
+padding: 0;
+}
+li{
+  margin-top: 5px;
+}
+li a{
+   color: green; 
+}

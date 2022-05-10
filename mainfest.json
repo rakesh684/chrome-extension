@@ -1,0 +1,9 @@
+{
+    "manifest_version": 3,
+    "version": "1.2.0",
+    "name": "chromeextension",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "icon.png"
+    }
+}
