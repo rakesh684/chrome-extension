@@ -9,14 +9,23 @@ const inputBtn=document.querySelector("#input-btn")
 const ulEL=document.querySelector("#ul-el")
 
 const leadsFromLocalStorage=JSON.parse(localStorage.getItem("myLeads"))
-console.log(leadsFromLocalStorage)
+const saveBtn=document.querySelector("#tab-btn")
 // localStorage.clear()
 let deletebtn=document.querySelector("#input-btn-2")
-if(leadsFromLocalStorage==true){
+if(leadsFromLocalStorage){
     myLeads=leadsFromLocalStorage
     render(myLeads)
 }
 
+
+saveBtn.addEventListener("click",function(){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        myLeads.push(tabs[0].url)
+        localStorage.setItem("myLeads",JSON.stringify(myLeads))
+        render(myLeads)
+    })
+    
+})
 function render(leads){
     let listItem=""
     for(let i=0;i<leads.length;i++){
@@ -73,11 +82,3 @@ inputBtn.addEventListener("click",function(){
 // function buy(){
 //     contEl.innerHTML="<button>Thanks for buying</button>"
 // }
-
-const welcomeEl = document.getElementById("welcome-el")
-
-function greetUser() {
-    welcomeEl.textContent = "Welcome back, Per Harald Borgen 👋"    
-}
-
-greetUser()
